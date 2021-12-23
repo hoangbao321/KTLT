@@ -1,0 +1,53 @@
+﻿@{
+    Layout = null;
+    var Ho_ten = "";
+    var Loi_chao = "";
+    var Chuoi_HTML_LOI_CHAO = "";
+    if (IsPost)
+    {
+        Ho_ten = Request["A"];
+    }
+
+    var hop_le = XL_NGHIEP_VU.kiem_tra_hop_le_khach_hang(Ho_ten, ref Loi_chao);
+    var danh_sach_nhom_hang = XL_LUU_TRU.doc_nhom_hang();
+    
+    if (hop_le)
+    {
+
+        //Loi_chao = XL_NGHIEP_VU.Tao_loi_chao_khach_hang(Ho_ten);
+
+        Chuoi_HTML_LOI_CHAO = "<div>" + Loi_chao + "</br>Đây là ứng dụng web của tôi <b>với nhập liệu cải tiến </b> đầu tiên của tôi<div>";
+
+        var rand = new Random();
+
+        var n = rand.Next(0, 5);
+
+        Chuoi_HTML_LOI_CHAO = $"<img src='HINH/NGUOI_DUNG_{n}.jpg' width='200' height='200' /><br>" + Chuoi_HTML_LOI_CHAO;
+
+        danh_sach_nhom_hang.ForEach(hang =>
+        Chuoi_HTML_LOI_CHAO += $"<br> <b>{hang.ten}</b> <br>"
+        + $"<br> <img src='HINH/{hang.ma_so}.jpg' width='100' height='50'/><br>");
+
+    } 
+    else
+    {
+        Chuoi_HTML_LOI_CHAO = "Xin vui lòng nhập # rỗng <br>nhập tên sau đó click <b>Submit</b>";
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MH_LOI_CHAO_KHACH_HANG</title>
+</head>
+<body>
+    <form method="Post">
+        <label>Nhap ten khach hang</label>
+        <input type="text" name="A" value="@Ho_ten" />
+        <input type="submit" value="Submit" />
+    </form>
+    @Html.Raw(Chuoi_HTML_LOI_CHAO)
+
+</body>
+</html>

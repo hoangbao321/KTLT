@@ -1,0 +1,25 @@
+﻿@{
+
+    Layout = null;
+
+    var Chuoi_HTML_LOI_CHAO = "Xin Chào" + "<br/>khách hàng đây là trang web của tôi";
+
+    var rand = new Random();
+
+    var n = rand.Next(0,5);
+
+    Chuoi_HTML_LOI_CHAO = $"<img src='HINH/NGUOI_DUNG_{n}.jpg' width='250' height='250'/><br>"+Chuoi_HTML_LOI_CHAO;
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MH_CHAO_TAT_CA</title>
+</head>
+<body>
+    @Html.Raw(Chuoi_HTML_LOI_CHAO)
+</body>
+</html>
+

@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = null;
+    var ten_dang_nhap = "";
+    var mat_khau = "";
+    var Loi_chao = "";
+    var Chuoi_HTML_LOI_CHAO = "";
+    var password = "";
+    if (IsPost)
+    {
+        ten_dang_nhap = Request["th_ten_dang_nhap"];
+        password = Request["th_mat_khau"];
+    }
+
+    var danh_sach_nhom_hang = XL_LUU_TRU.doc_nhom_hang();
+    var danh_sach_nhan_vien = XL_LUU_TRU.doc_nhan_vien();
+    var nhan_vien = XL_NGHIEP_VU.dang_nhap_nhan_vien(danh_sach_nhan_vien,ten_dang_nhap ,password);
+    var hop_le = nhan_vien != null;
+
+    if (hop_le)
+    {
+        // phải thay đổi trước rồi mới ghi,ghi_nhan_vien trước khi thay đổi sẽ ko add dc vào
+        // list danh_sach_dang_nhap ( ngày giờ)
+        Loi_chao = XL_NGHIEP_VU.tao_loi_chao_nhan_vien(nhan_vien);
+        XL_LUU_TRU.ghi_nhan_vien(nhan_vien);
+
+
+        Chuoi_HTML_LOI_CHAO = XL_THE_HIEN.Chuoi_HTML_nhan_vien(nhan_vien,Loi_chao);
+
+        #region cách bảo tìm hàng mà nv dc phân công
+        // in toàn bộ tên nhóm hàng + hình ảnh của nhân viên đó -cách bảo
+        //var danh_sach_nhom_hang_1 = XL_NGHIEP_VU.tao_danh_sach_nhom_hang_duoc_phan_cong(nhan_vien);
+        //danh_sach_nhom_hang_1.ForEach(hang =>
+        //Chuoi_HTML_LOI_CHAO += Chuoi_HTML_LOI_CHAO += XL_THE_HIEN.Chuoi_HTML_danh_sach_nhom_hang(hang));
+        #endregion  
+
+        var danh_sach_phan_cong = XL_NGHIEP_VU.tao_danh_sach_nhom_hang_duoc_phan_cong(nhan_vien, danh_sach_nhom_hang);
+        danh_sach_phan_cong.ForEach(hang =>
+        Chuoi_HTML_LOI_CHAO += XL_THE_HIEN.Chuoi_HTML_danh_sach_nhom_hang(hang));
+    }
+    else
+    {
+        Chuoi_HTML_LOI_CHAO = "Xin vui lòng nhập ma số # rỗng <br>nhập tên sau đó click <b>Submit</b>";
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MH_CHAO_NHAN_VIEN</title>
+</head>
+<body>
+    @*<form method="POST">
+            <label>Nhap ho ten NV</label>
+            <input type="text" name="th_ma_so" value="@Ma_so" />
+            <input type="submit" value="dong y" />
+        </form>*@
+    <form method="POST">
+        <label>Nhap ho ten NV</label><br />
+        <input type="text" name="th_ten_dang_nhap" value="@ten_dang_nhap" /><br />
+        <label>PASSWORD</label><br />
+        <input type="password" name="th_mat_khau" value="@mat_khau" /><br />
+        <input type="submit" value="dong y" />
+    </form>
+    @Html.Raw(Chuoi_HTML_LOI_CHAO)
+</body>
+</html>

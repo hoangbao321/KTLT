@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+    var Ma_So = "";
+    var Chuoi_HTML_LOI_CHAO = "";
+    var Loi_Chao="";
+    var thong_tin_nhan_vien = "";
+    if (IsPost)
+    {
+        Ma_So = Request["ma_so"]; // lấy dữ liệu từ web nhập
+                                  //string file_path = @"\Du_lieu\";
+                                  //var link_du_lieu = Server.MapPath(file_path + Ma_So + ".txt");
+                                  //var link_du_lieu = Server.MapPath("\\Du_lieu\\" + Ma_So + ".txt"); //link tới file lưu
+    }
+    var link_du_lieu = Server.MapPath(@"\Du_lieu\" + Ma_So + ".txt");
+    var hop_le = File.Exists(link_du_lieu) && Ma_So.Trim() != "";// xử lý điều kiện
+
+    if (hop_le)
+    {
+        var Ho_ten = File.ReadAllText(link_du_lieu);
+        Loi_Chao = "Xin chao nhan vien " +Ho_ten;
+        Chuoi_HTML_LOI_CHAO = "<div>" + Loi_Chao + "</br>Đây là ứng dụng web của tôi <b>với nhập liệu cải tiến </b> đầu tiên của tôi<div>";
+    }
+    else
+    {
+        Chuoi_HTML_LOI_CHAO = "Xin vui lòng nhập # rỗng <br>nhập tên sau đó click <b>Submit</b>";
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MH_CHAO_NHAN_VIEN</title>
+</head>
+<body>
+    <form method="POST">
+        <label>Nhap ho ten NV</label>
+        <input type="text" name="ma_so" value="@thong_tin_nhan_vien" />
+        <input type="submit" value="dong y" />
+    </form>
+    @Html.Raw(Chuoi_HTML_LOI_CHAO)
+
+</body>
+</html>

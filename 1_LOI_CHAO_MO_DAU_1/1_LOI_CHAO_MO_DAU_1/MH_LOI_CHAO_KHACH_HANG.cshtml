@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+    var Ho_ten = "";
+    var Xin_chao = "";
+    var Chuoi_HTML_LOI_CHAO = "";
+    if (IsPost)
+    {
+        Ho_ten = Request["A"];
+    }
+    var hop_le = Ho_ten.Trim() != "";
+    if (hop_le)
+    {
+        Xin_chao = "Xin chào " + Ho_ten;
+        Chuoi_HTML_LOI_CHAO = "<div>" + Xin_chao + "</br>Đây là ứng dụng web của tôi <b>với nhập liệu cải tiến </b> đầu tiên của tôi<div>";
+        Chuoi_HTML_LOI_CHAO = "<img src = 'HINH/KHACH_HANG_0.png' width='100' height='100'/><br>" + Chuoi_HTML_LOI_CHAO;
+    }
+    else
+    {
+        Chuoi_HTML_LOI_CHAO = "Xin vui lòng nhập # rỗng <br>nhập tên sau đó click <b>Submit</b>";
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MH_LOI_CHAO_KHACH_HANG</title>
+</head>
+<body>
+    <form method="Post">
+        <label>Nhap ten khach hang</label>
+        <input type="text" name="A" value="@Ho_ten" />
+        <input type="submit" value="Submit" />
+    </form>
+    @Html.Raw(Chuoi_HTML_LOI_CHAO)
+
+</body>
+</html>

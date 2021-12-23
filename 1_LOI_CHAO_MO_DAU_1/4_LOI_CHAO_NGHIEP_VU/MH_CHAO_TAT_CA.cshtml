@@ -1,0 +1,24 @@
+﻿@{
+
+    Layout = null;
+    var Loi_chao = XL_NGHIEP_VU.Tao_loi_chao_tat_ca();
+
+    var Chuoi_HTML_LOI_CHAO = Loi_chao + "<br/>khách hàng đây là trang web của tôi";
+
+    var n = XL_NGHIEP_VU.So_random(0,2);
+
+    Chuoi_HTML_LOI_CHAO = $"<img src='HINH/NGUOI_DUNG_{n}.jpg' width='250' height='250'/><br>"+Chuoi_HTML_LOI_CHAO;
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MH_CHAO_TAT_CA</title>
+</head>
+<body>
+    @Html.Raw(Chuoi_HTML_LOI_CHAO)
+</body>
+</html>
+

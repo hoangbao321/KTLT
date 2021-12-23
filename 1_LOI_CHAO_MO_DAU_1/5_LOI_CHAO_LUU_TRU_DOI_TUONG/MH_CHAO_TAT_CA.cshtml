@@ -1,0 +1,22 @@
+﻿@{
+
+    Layout = null;
+    var Loi_chao = XL_NGHIEP_VU.Tao_loi_chao_tat_ca();
+    var Chuoi_HTML_LOI_CHAO = XL_THE_HIEN.Chuoi_HTML_hinh_anh_khach_hang_random(Loi_chao);
+    //ở hàm xử lý nghiệp vụ đọc toàn bộ file Nhom_hang, add nó vào list ở đây là xuất tất cả các nội dụng trong list
+    // và hình ảnh của nó( hình ảnh lưu ngang hàng với file bin khác với windoform toàn là con của file bin 
+    var danh_sach_nhom_hang = XL_LUU_TRU.doc_nhom_hang();
+    danh_sach_nhom_hang.ForEach(hang =>
+    Chuoi_HTML_LOI_CHAO += XL_THE_HIEN.Chuoi_HTML_danh_sach_nhom_hang(hang) );
+}
+<!DOCTYPE html>
+<html>
+<head> 
+    <meta name="viewport" content="width=device-width" />
+    <title>MH_CHAO_TAT_CA</title>
+</head>
+<body>
+    @Html.Raw(Chuoi_HTML_LOI_CHAO)
+</body>
+</html>
+

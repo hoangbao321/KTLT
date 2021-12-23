@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+    var Ma_so = "";
+    var Loi_Chao = "";
+    var Chuoi_HTML_LOI_CHAO = "";
+    if (IsPost)
+    {
+        Ma_so = Request["th_ma_so"];
+    }
+    var nhan_vien = XL_LUU_TRU.doc_nhan_vien();
+
+    var c = nhan_vien.FirstOrDefault(thanh_phan => thanh_phan.Ma_So == Ma_so);
+
+    if (c != null )
+    {
+
+        c.So_lan_Chao++;
+
+        XL_LUU_TRU.ghi_nhan_vien(nhan_vien);
+
+        Loi_Chao = $"Xin chao nhan vien: {c.Ho_ten}<br>So lan da chao la: {c.So_lan_Chao}";
+
+        Chuoi_HTML_LOI_CHAO = $"<div>{Loi_Chao} <br> Day la ung dung <b>web luu tru doi tuong</b> dau tien cua toi </div>";
+
+        Chuoi_HTML_LOI_CHAO = $"<img src = 'HINH/{c.Ma_So}.jpg' width='100' height='100'/><br>" + Chuoi_HTML_LOI_CHAO;
+
+    }
+    else
+    {
+        Chuoi_HTML_LOI_CHAO = "Xin vui lòng nhập ma số # rỗng <br>nhập tên sau đó click <b>Submit</b>";
+    }
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MH_CHAO_NHAN_VIEN</title>
+</head>
+<body>
+    <form method="POST">
+        <label>Nhap ho ten NV</label>
+        <input type="text" name="th_ma_so" value="@Ma_so" />
+        <input type="submit" value="dong y" />
+    </form>
+    @Html.Raw(Chuoi_HTML_LOI_CHAO)
+</body>
+</html>
